@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Posts</h2>
+<a href="{{ url_for('create_post') }}">+ Add Post</a>
+<ul>
+  {% for post in posts %}
+    <li>{{ post.content }} (by User ID: {{ post.user_id }}{{ post.user.username }}) -
+        <span>{{ post.total_likes or 0 }} likes</span>
+        <form action="{{ url_for('like_post', post_id=post.post_id) }}" method="post" style="display:inline;">
+            <button type="submit">👍 Like</button>
+          </form>
+        <a href="{{ url_for('delete_post', post_id=post.post_id) }}">Delete</a>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}
